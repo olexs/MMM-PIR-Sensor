@@ -145,7 +145,7 @@ The following properties can be configured:
 				<br><b>Default value:</b> <code>false</code>
 			</td>
 		</tr>    
-    <tr>
+    	<tr>
 			<td><code>presenceIndicator</code></td>
 			<td>When module <code>position</code> is defined, thus it is <b>visible</b>, display an indicator when <code>USER_PRESENCE</code> is detected.
 				<br><b>Possible values:</b> <code>Font Awesome icons</code> [See here](https://fontawesome.com/icons?d=gallery)
@@ -153,7 +153,7 @@ The following properties can be configured:
 				<br><b>Note: </b> Not displayed if set to <code>null</code>
 			</td>
 		</tr>    
-                <tr>
+		<tr>
 			<td><code>presenceIndicatorColor</code></td>
 			<td>The color of <code>presenceIndicator</code>, if defined.
 				<br><b>Possible values:</b> <code>color value</code>
@@ -161,7 +161,7 @@ The following properties can be configured:
 				<br><b>Note: </b> <code>presenceIndicator</code> is not displayed if this parameter is set to <code>null</code>
 			</td>
 		</tr>    
-                <tr>
+		<tr>
 			<td><code>presenceOffIndicator</code></td>
 			<td>When module <code>position</code> is defined, thus it is <b>visible</b>, display an indicator when <code>USER_PRESENCE</code> is <b>not</b> detected.
 				<br><b>Possible values:</b> <code>Font Awesome icons</code> [See here](https://fontawesome.com/icons?d=gallery)
@@ -169,7 +169,14 @@ The following properties can be configured:
 				<br><b>Note: </b> Not displayed if set to <code>null</code>
 			</td>
 		</tr>    
-                <tr>
+		<tr>
+			<td><code>presenceDelay</code></td>
+			<td>When set to <code>true</code>, will only send the <code>USER_PRESENCE</code> notification after <code>powerSavingDelay</code>/<code>powerSavingTurnOnDelay</code> (synchronized to switching the monitor off/on with the same delays). When set to <code>false</code>, notification is sent immediately when the sensor switches state (default behaviour).
+				<br><b>Possible values:</b> <code>true</code> or <code>false</code>
+				<br><b>Default value:</b> <code>false</code>
+			</td>
+		</tr>    
+		<tr>
 			<td><code>presenceOffIndicatorColor</code></td>
 			<td>The color of <code>presenceOffIndicator</code>, if defined.
 				<br><b>Possible values:</b> <code>color value</code>

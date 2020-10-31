@@ -162,22 +162,34 @@ module.exports = NodeHelper.create({
             // Detected movement
             this.pir.watch(function (err, value) {
                 if (value == valueOn) {
-                    self.sendSocketNotification('USER_PRESENCE', true);
+                    if (!self.config.presenceDelay) {
+                        self.sendSocketNotification('USER_PRESENCE', true);
+                    }
+
                     if (self.config.powerSaving){
                         clearTimeout(self.deactivateMonitorTimeout);
                         self.activateMonitorTimeout = setTimeout(function() {
+                            if (self.config.presenceDelay) {
+                                self.sendSocketNotification('USER_PRESENCE', true);
+                            }
                             self.activateMonitor();
                         }, self.config.powerSavingTurnOnDelay * 1000);
                     }
                 }
                 else if (value == valueOff) {
-                    self.sendSocketNotification('USER_PRESENCE', false);
+                    if (!self.config.presenceDelay || !self.config.powerSaving) {
+                        self.sendSocketNotification('USER_PRESENCE', false);
+                    }
+
                     if (!self.config.powerSaving){
                         return;
                     }
                     
                     clearTimeout(self.activateMonitorTimeout);
                     self.deactivateMonitorTimeout = setTimeout(function() {
+                        if (self.config.presenceDelay) {
+                            self.sendSocketNotification('USER_PRESENCE', false);
+                        }
                         self.deactivateMonitor();
                     }, self.config.powerSavingDelay * 1000);
                 }

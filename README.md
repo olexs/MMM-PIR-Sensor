@@ -65,6 +65,13 @@ The following properties can be configured:
 			</td>
 		</tr>
 		<tr>
+			<td><code>powerSavingTurnOnDelay</code></td>
+			<td>Additional software side delay (in seconds) before the monitor will be turned on after movenment is detected. If movement is gone again before the delay runs out, the monitor will stay off. Useful for flaky PIR sensors that will occasionally detect false positives.<br>
+				<br><b>Possible values:</b> <code>number</code> (<code>int</code> or <code>float</code>)
+				<br><b>Default value:</b> <code>0</code>
+			</td>
+		</tr>
+		<tr>
 			<td><code>relayPin</code></td>
 			<td>If you want to use a relay to turn of the mirror provide the pin here. If no pin is provided HDMI is turned off instead.<br>
 				<br><b>Possible values:</b> <code>int</code>

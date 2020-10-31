@@ -88,7 +88,7 @@ module.exports = NodeHelper.create({
             const self = this;
             this.config = payload;
 
-	    if (self.config.powerSaving) {
+	        if (self.config.powerSaving) {
                 self.deactivateMonitorTimeout = setTimeout(function() { // Set the timeout before movement is identified
                     self.deactivateMonitor();
                 }, self.config.powerSavingDelay * 1000);
@@ -146,11 +146,11 @@ module.exports = NodeHelper.create({
                     }
                 })
             }
-	    else {
+            else {
                 exec("/usr/bin/vcgencmd display_power 1", null);  // Mirror could have stopped with HDMI off. Reset at startup
-	        if (this.config.supportCEC)
-    	            exec("echo 'on o' | cec-client -s -d 1");
-	    }
+                if (this.config.supportCEC)
+                    exec("echo 'on o' | cec-client -s -d 1");
+            }
 
             // Setup for sensor pin
             this.pir = new Gpio(this.config.sensorPin, 'in', 'both');
@@ -165,7 +165,9 @@ module.exports = NodeHelper.create({
                     self.sendSocketNotification('USER_PRESENCE', true);
                     if (self.config.powerSaving){
                         clearTimeout(self.deactivateMonitorTimeout);
-                        self.activateMonitor();
+                        self.activateMonitorTimeout = setTimeout(function() {
+                            self.activateMonitor();
+                        }, self.config.powerSavingTurnOnDelay * 1000);
                     }
                 }
                 else if (value == valueOff) {
@@ -173,7 +175,8 @@ module.exports = NodeHelper.create({
                     if (!self.config.powerSaving){
                         return;
                     }
-
+                    
+                    clearTimeout(self.activateMonitorTimeout);
                     self.deactivateMonitorTimeout = setTimeout(function() {
                         self.deactivateMonitor();
                     }, self.config.powerSavingDelay * 1000);
@@ -182,14 +185,14 @@ module.exports = NodeHelper.create({
 
             this.started = true;
 
-	    if (this.config.runSimulator) {
-	    	setInterval(function(){ 
-			self.sendSocketNotification('USER_PRESENCE', true);
-			setTimeout(function() {
-				self.sendSocketNotification('USER_PRESENCE', false);
-			}, 1000);
-		    }, 20000);
-	    }
+            if (this.config.runSimulator) {
+                setInterval(function(){ 
+                    self.sendSocketNotification('USER_PRESENCE', true);
+                    setTimeout(function() {
+                        self.sendSocketNotification('USER_PRESENCE', false);
+                    }, 1000);
+                }, 20000);
+            }
         } else if (notification === 'SCREEN_WAKEUP') {
             this.activateMonitor();
         }

@@ -20,6 +20,7 @@ Module.register('MMM-PIR-Sensor',{
 		alwaysOffState: 1,
 		powerSaving: true,
 		powerSavingDelay: 0,
+		powerSavingTurnOnDelay: 0,
 		powerSavingNotification: false,
 		powerSavingMessage: "Monitor will be turn Off by PIR module",
 		presenceIndicator: "fa-bullseye",
